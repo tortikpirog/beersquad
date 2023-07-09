@@ -2,6 +2,10 @@
 
 require_once ('controllers/TestController.php');
 
+function safe_require($path) {
+    require_once($_SERVER['DOCUMENT_ROOT'] . '/protected/' . $path);
+}
+
 class Router
 {
     public function initialize(){

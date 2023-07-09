@@ -8,6 +8,11 @@
     <title>Document</title>
 </head>
 <body>
-<h1>{EQ</h1>
+<h1>
+    <?php
+    foreach ($GLOBALS['viewModel'] as $name) {
+        echo '<p>' . $name . '</p>';
+    } ?>
+</h1>
 </body>
 </html>

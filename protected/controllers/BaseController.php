@@ -2,7 +2,9 @@
 
 class BaseController
 {
-protected function renderView($viewPath){
-    require_once ($_SERVER['DOCUMENT_ROOT']."/protected/views/$viewPath.php");
-}
+    protected function renderView($viewPath, $viewModel)
+    {
+        $GLOBALS['viewModel'] = $viewModel;
+        safe_require("views/$viewPath.php");
+    }
 }
