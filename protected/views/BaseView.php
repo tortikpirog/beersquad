@@ -8,6 +8,8 @@
     <title>Document</title>
 </head>
 <body>
-{{content}}
+<?php
+safe_require($GLOBALS["viewPath"]);
+?>
 </body>
 </html>

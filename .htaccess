@@ -2,6 +2,10 @@ AddDefaultCharset utf-8
 
 RewriteEngine on
 
+Options -Indexes
+
+RewriteRule ^$ /start/start [L]
+
 RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} !-f
 
 # if a directory or a file exists, use it directly

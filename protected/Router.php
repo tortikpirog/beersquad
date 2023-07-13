@@ -1,6 +1,8 @@
 <?php
 
 require_once ('controllers/TestController.php');
+require_once ('controllers/StartController.php');
+require_once ('controllers/UserController.php');
 
 function safe_require($path) {
     require_once($_SERVER['DOCUMENT_ROOT'] . '/protected/' . $path);
@@ -10,11 +12,18 @@ class Router
 {
     public function initialize(){
         $requestURL = $_SERVER['REQUEST_URI'];
-        preg_match('/\/([\s\S]+)\/([\s\S]+)/', $requestURL, $matches,PREG_UNMATCHED_AS_NULL);
-        if (count($matches) < 3) {
-            $this->return404('паттерн говно');
-            return;
+
+        if ($requestURL === '/') {
+            $matches[] = '';
+            $matches[] = 'start';
+            $matches[] = 'start';
+        } else {
+            preg_match('/\/([\s\S]+)\/([\w0-9-_]+)([?\s\S]+)*/', $requestURL, $matches, PREG_UNMATCHED_AS_NULL);
+            if (count($matches) < 3) {
+                $this->return404('паттерн говно');
+                return;
             }
+        }
         $this->matchRoute($matches[1], $matches[2]);
     }
     private function matchRoute($controllerName, $actionName) {
@@ -25,6 +34,23 @@ class Router
                 switch (strtolower($actionName)) {
                     case 'test':
                         $controller->testAction();
+                        break;
+                    case 'showall':
+                        $controller->showALlAction();
+                        break;
+                    case 'create':
+                        $controller->createAction();
+                        break;
+                    default:
+                        $this->return404('метод говно');
+                        return;
+                }
+                break;
+            case 'start':
+                $controller = new StartController();
+                switch (strtolower($actionName)) {
+                    case 'start':
+                        $controller->startAction();
                         break;
                     default:
                         $this->return404('метод говно');

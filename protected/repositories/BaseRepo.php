@@ -42,4 +42,6 @@ abstract class BaseRepo
     abstract function saveEntity($entity);
 
     abstract function updateEntity($entity);
+
+    abstract function deleteEntity($entity);
 }
